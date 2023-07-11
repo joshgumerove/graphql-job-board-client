@@ -6,9 +6,7 @@ function HomePage() {
   const [jobs, setJobs] = useState([]);
 
   useEffect(() => {
-    getJobs().then((jobs) => {
-      setJobs(jobs);
-    });
+    getJobs().then(setJobs);
   }, []);
 
   return (
