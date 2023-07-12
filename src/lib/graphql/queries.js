@@ -47,6 +47,13 @@ async function getCompany(id) {
       company(id: $id) {
         description
         name
+        id
+        jobs {
+          id
+          title
+          description
+          date
+        }
       }
     }
   `;
