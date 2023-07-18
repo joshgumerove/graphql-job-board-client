@@ -49,8 +49,14 @@ async function getJob(id) {
       }
     }
   `;
-  const { job } = await client.request(query, { id });
-  return job;
+  const { data } = await apolloClient.query({
+    query,
+    variables: {
+      id,
+    },
+  });
+
+  return data.job;
 }
 
 async function getJobs() {
@@ -68,9 +74,8 @@ async function getJobs() {
     }
   `;
 
-  const { jobs } = await client.request(query);
-
-  return jobs;
+  const { data } = await apolloClient.query({ query });
+  return data.jobs;
 }
 
 async function getCompany(id) {
@@ -90,11 +95,14 @@ async function getCompany(id) {
     }
   `;
 
-  const { company } = await client.request(query, {
-    id,
+  const { data } = await apolloClient.query({
+    query,
+    variables: {
+      id,
+    },
   });
 
-  return company;
+  return data.company;
 }
 
 export { getJobs, getJob, getCompany, createJob };
