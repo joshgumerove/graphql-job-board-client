@@ -15,15 +15,12 @@ const httpLink = createHttpLink({
 const authLink = new ApolloLink((operation, forward) => {
   const accessToken = getAccessToken();
   if (accessToken) {
-    // return { Authorization: `Bearer ${accessToken}` };
     operation.setContext({
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },
     });
   }
-  console.log("[customLink] operation: ", operation);
-
   return forward(operation);
 });
 
@@ -40,12 +37,6 @@ async function createJob({ title, description }) {
       }
     }
   `;
-  // const { job } = await client.request(mutation, {
-  //   input: {
-  //     title,
-  //     description,
-  //   },
-  // });
 
   const { data } = await apolloClient.mutate({
     mutation,
@@ -100,7 +91,10 @@ async function getJobs() {
     }
   `;
 
-  const { data } = await apolloClient.query({ query });
+  const { data } = await apolloClient.query({
+    query,
+    fetchPolicy: "network-only",
+  });
   return data.jobs;
 }
 
