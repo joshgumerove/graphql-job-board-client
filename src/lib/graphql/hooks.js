@@ -1,4 +1,4 @@
-import { companyByIdQuery, jobByIdQuery } from "./queries";
+import { companyByIdQuery, jobByIdQuery, getJobs } from "./queries";
 import { useQuery } from "@apollo/client";
 
 function useCompany(id) {
@@ -19,4 +19,11 @@ function useJob(id) {
   return { job: data?.job, loading, error: Boolean(error) };
 }
 
-export { useCompany, useJob };
+function useJobs() {
+  const { data, loading, error } = useQuery(getJobs, {
+    fetchPolicy: "network-only",
+  });
+  return { jobs: data?.jobs, loading, error: Boolean(error) };
+}
+
+export { useCompany, useJob, useJobs };
