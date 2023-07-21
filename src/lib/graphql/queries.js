@@ -99,16 +99,16 @@ async function createJob({ title, description }) {
   return data.job;
 }
 
-async function getJob(id) {
-  const { data } = await apolloClient.query({
-    query: jobByIdQuery,
-    variables: {
-      id,
-    },
-  });
+// async function getJob(id) {
+//   const { data } = await apolloClient.query({
+//     query: jobByIdQuery,
+//     variables: {
+//       id,
+//     },
+//   });
 
-  return data.job;
-}
+//   return data.job;
+// }
 
 async function getJobs() {
   const query = gql`
@@ -132,4 +132,4 @@ async function getJobs() {
   return data.jobs;
 }
 
-export { getJobs, getJob, createJob, apolloClient, companyByIdQuery };
+export { getJobs, createJob, apolloClient, companyByIdQuery, jobByIdQuery };
