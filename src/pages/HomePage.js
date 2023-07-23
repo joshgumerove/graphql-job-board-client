@@ -19,25 +19,26 @@ function HomePage() {
     return <div>Loading...</div>;
   }
 
+  const totalPages = Math.ceil(jobs.totalCount / JOBS_PER_PAGE);
+
   return (
     <div>
       <h1 className="title">Job Board</h1>
-      <JobList jobs={jobs} />
+      <JobList jobs={jobs.items} />
       <div>
         <button
-          onClick={() =>
-            setCurrentPage((prev) => {
-              if (prev === 1) {
-                return 1;
-              }
-              return prev - 1;
-            })
-          }
+          onClick={() => setCurrentPage((prev) => prev - 1)}
+          disabled={currentPage === 1}
         >
           Previous
         </button>
-        <span> {currentPage} </span>
-        <button onClick={() => setCurrentPage((prev) => prev + 1)}>Next</button>
+        <span> {`${currentPage} of ${totalPages}`} </span>
+        <button
+          onClick={() => setCurrentPage((prev) => prev + 1)}
+          disabled={currentPage === totalPages}
+        >
+          Next
+        </button>
       </div>
     </div>
   );
